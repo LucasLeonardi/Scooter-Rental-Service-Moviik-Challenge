@@ -17,6 +17,12 @@ services:
       build: . 
       ports:
         - 3000:3000
-      # depends_on:
-      #   postgres:
-      #     condition: service_healthy
+      depends_on:
+        postgres:
+          condition: service_healthy
+      environment:
+        DB_HOST: postgres
+        DB_USER: postgres
+        DB_PASSWORD: "12345"
+        DB_NAME: challenge
+        DB_PORT: 5432
