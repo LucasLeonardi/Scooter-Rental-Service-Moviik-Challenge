@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "12345"
+      POSTGRES_DB: "challenge"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "5431:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  app:
+      image: node-docker-app
+      build: . 
+      ports:
+        - 3000:3000
+      # depends_on:
+      #   postgres:
+      #     condition: service_healthy
