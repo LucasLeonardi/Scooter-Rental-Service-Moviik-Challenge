@@ -23,7 +23,7 @@ export class ScootersRepository extends Repository<Scooter> implements ScooterRe
                 lock: { mode: 'pessimistic_write' },
             });
 
-            if(scooter === null){
+            if(!scooter){
                 await queryRunner.release();
                 return null
             }
@@ -34,15 +34,23 @@ export class ScootersRepository extends Repository<Scooter> implements ScooterRe
 
             await queryRunner.release();
             return scooterUpdate
-
-        } finally {
+        } catch {
             await queryRunner.release();
             return null
         }
     }
 
-    async createNew(scooter: Scooter): Promise<Scooter>{
+    async getScooter(scooterId: number): Promise<Scooter | null>{
+        return await this.scooterRepo.findOne({
+            where: {
+                id: scooterId
+            }
+        })
+    }
+
+    async createOrPatch(scooter: Scooter): Promise<Scooter>{
         const saved = await this.scooterRepo.save(scooter)
         return saved;
     }
+
 }

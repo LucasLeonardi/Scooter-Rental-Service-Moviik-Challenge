@@ -18,5 +18,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useClass: ScootersRepository
     }, 
   ],
+  exports: [
+    {
+      provide: 'ScooterServiceInterface',
+      useClass: ScootersService
+    }, 
+  ]
 })
 export class ScootersModule {}

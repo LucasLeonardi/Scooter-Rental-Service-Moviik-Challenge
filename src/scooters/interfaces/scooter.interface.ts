@@ -1,11 +1,19 @@
 import { Scooter } from "../entities/scooter.entity"
 
 export interface ScooterServiceInterface{
-    create(): Promise<any>
+    create(): Promise<string>
+
+    reserve(): Promise<Scooter | null>
+
+    getScooter(scooterId: number): Promise<Scooter | null>
+
+    patchScooter(scooter: Scooter): Promise<Scooter>
 }
 
 export interface ScooterRepositoryInterface{
     reserve(): Promise<Scooter | null>
 
-    createNew(scooter: Scooter): Promise<Scooter>
+    createOrPatch(scooter: Scooter): Promise<Scooter>
+
+    getScooter(scooterId: number): Promise<Scooter | null>
 }

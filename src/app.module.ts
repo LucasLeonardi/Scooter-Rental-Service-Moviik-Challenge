@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScootersModule } from './scooters/scooters.module';
 import { Scooter } from './scooters/entities/scooter.entity';
+import { RidesModule } from './rides/rides.module';
+import { Ride } from './rides/entities/ride.entity';
 
 @Module({
   imports: [
@@ -14,10 +16,14 @@ import { Scooter } from './scooters/entities/scooter.entity';
       username: 'postgres',
       password: '12345',
       database: 'challenge',
-      entities: [Scooter],
+      entities: [
+        Scooter,
+        Ride
+      ],
       synchronize: true,
     }),
     ScootersModule,
+    RidesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
